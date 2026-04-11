@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Portal</title>
+  <style>
+    body{font-family:Arial,sans-serif;background:#0b7a2f;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0}
+    .box{background:#fff;padding:30px;border-radius:20px;width:380px;box-shadow:0 8px 20px rgba(0,0,0,.2)}
+    h2{text-align:center;color:green;margin-bottom:20px}
+    input{width:100%;padding:12px;margin:10px 0;border:1px solid #ccc;border-radius:10px;box-sizing:border-box}
+    button{width:100%;padding:12px;background:green;color:#fff;border:none;border-radius:10px;font-size:16px;cursor:pointer}
+    .links{display:flex;justify-content:space-between;margin-top:15px;font-size:14px}
+    .links a{text-decoration:none;color:green;cursor:pointer}
+    .hidden{display:none}
+  </style>
+  <script>
+    function showForm(id){
+      document.getElementById('loginForm').classList.add('hidden');
+      document.getElementById('registerForm').classList.add('hidden');
+      document.getElementById('forgotForm').classList.add('hidden');
+      document.getElementById(id).classList.remove('hidden');
+    }
+  </script>
+</head>
+<body>
+  <div class="box">
+    <div id="loginForm">
+      <h2>Login</h2>
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <button>Login</button>
+      <div class="links">
+        <a onclick="showForm('registerForm')">Register</a>
+        <a onclick="showForm('forgotForm')">Forgot Password?</a>
+      </div>
+    </div>
+
+    <div id="registerForm" class="hidden">
+      <h2>Register</h2>
+      <input type="text" placeholder="Full Name" required>
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <input type="password" placeholder="Confirm Password" required>
+      <button>Create Account</button>
+      <div class="links">
+        <a onclick="showForm('loginForm')">Back to Login</a>
+      </div>
+    </div>
+
+    <div id="forgotForm" class="hidden">
+      <h2>Forgot Password</h2>
+      <input type="email" placeholder="Enter your email" required>
+      <button>Send Reset Link</button>
+      <div class="links">
+        <a onclick="showForm('loginForm')">Back to Login</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

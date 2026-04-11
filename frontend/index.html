@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Farmer Market</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\logo.webp" class="logo" alt="logo">
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="cate.html">All Categories</a></li>
+                <li><a href="best.html">Best selling</a></li>
+                <li><a href="combo.html">Special Combo</a></li>
+                <li><a href="trackorder.html">Track Order</a></li>
+                <li class="language-menu">
+                    <a href="#">Language ▼</a>
+                    <ul class="dropdown">
+                        <li><a href="#" onclick="changeLanguage('en')">English</a></li>
+                        <li><a href="#" onclick="changeLanguage('ta')">Tamil</a></li>
+                        <li><a href="#" onclick="changeLanguage('hi')">Hindhi</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="header-icons">
+            <div class="search-btn">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchBox" placeholder="Search Products">
+            </div>
+            <span id="Loginbtn" onclick="openLogin()">Login</span>
+            <span onclick="logoutUser()">Logout</span>
+            <span onclick="openCart()" id="cartBtn">🛒</span>
+        </div>
+    </header>
+    <div class="track-container">
+    <h2>My Orders</h2>
+    <div id="orderList"></div>
+    </div>
+
+  
+    <section class="hero-slider">
+        <button class="prev">&#10094;</button>
+        <img id="bannerImage" src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\far1.jpg" alt="Banner">
+        <button class="next">&#10095;</button>
+    </section>
+    <div class="organic-range">
+        <h2>View Product</h2>
+        <button class="scroll-btn left" onclick="scrollLeftRange()">&#10094;</button>
+        <button class="scroll-btn right" onclick="scrolRightRange()">&#10095;</button>
+    </div> 
+    <div class="range-container" id="rangeContainer">
+        <div class="range-item" onclick="showProductDetails('Nila Kadalai','Rs.120/kg','Fresh groundnut directly from farm','kadalai.jfif')">
+            <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\kadalai.jfif" alt="">
+            <p>Nila Kadalai</p>
+        </div>
+    <div class="range-container" id="rangeContainer"></div>
+        <div class="range-item" onclick="showProductDetails('kammbu','Rs.250/kg','Fresh groundnut directly from farm','kammbu.jpg')">
+            <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\kammbu.jpg" alt="">
+            <p>Kambu</p>
+        </div>
+    <div class="range-container" id="rangeContainer"></div>
+        <div class="range-item" onclick="showProductDetails('karumbu','Rs.250/kg','Fresh groundnut directly from farm','karumbu.jpg')">
+            <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\karumbu.jpg" alt="">
+            <p>Karumbu</p>
+        </div>
+    <div class="range-container" id="rangeContainer"></div>
+        <div class="range-item" onclick="showProductDetails('kelvaragu','Rs.300/kg','Fresh groundnut directly from farm','kelvaragu.png')">
+            <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\kelvaragu.png" alt="">
+            <p>Kelvaragu</p>
+        </div>
+    <div class="range-container" id="rangeContainer"></div>
+        <div class="range-item" onclick="showProductDetails('nel','Rs.100/kg','Fresh groundnut directly from farm','nel.jpg')">
+            <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\nel.jpg" alt="">
+            <p>nel</p>
+        </div>
+    <div class="range-container" id="rangeContainer"></div>
+        <div class="range-item" onclick="showProductDetails('onion','Rs.100/kg','Fresh groundnut directly from farm','onion.jfif')">
+            <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\onion.jfif" alt="">
+            <p>oinion</p>
+        </div>
+    <div class="range-container" id="rangeContainer"></div>
+        <div class="range-item" onclick="showProductDetails('paruththi','Rs.200/kg','Fresh groundnut directly from farm','paruththi.webp')">
+            <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\paruththi.webp" alt="">
+            <p>paruththi</p>
+        </div>
+    <div class="range-container" id="rangeContainer"></div>
+        <div class="range-item" onclick="showProductDetails('corn','Rs.150/kg','Fresh groundnut directly from farm','corn.webp')">
+            <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\corn.webp" alt="">
+            <p>corn</p>
+        </div>
+    <div class="range-container" id="rangeContainer"></div>
+        <div class="range-item" onclick="showProductDetails('thakkali','Rs.60/kg','Fresh groundnut directly from farm','thakkali.jpg')">
+            <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\thakkali.jpg" alt="">
+            <p>thakkali</p>
+        </div>
+    <div class="range-container" id="rangeContainer"></div>
+        <div class="range-item" onclick="showProductDetails('vaalai','Rs.200/kg','Fresh groundnut directly from farm','vaalai.jpg')">
+            <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\vaalai.jpg" alt="">
+            <p>vaalai</p>
+        </div>
+        
+    </div>
+    <div class="offers">
+        <h2>Offers</h2>
+    </div>
+    <section class="offer-section">
+        <div class="offer-card">
+            <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\cornad.jfif" alt="corn">
+        </div>
+        <div class="offer-card">
+            <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\onionad.jfif" alt="onion">
+        </div>
+        <div class="offer-card">
+            <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\tomoto_ad.jpg" alt="tomoto">
+        </div>
+    </section>
+    <div id="farmerUploadBox" style="display:none; background:white; padding:20px; margin:20px; border-radius:15px;">
+        <h2>Upload Product</h2>
+        <input type="text" id="productName" placeholder="Product Name">
+        <input type="number" id="productPrice" placeholder="Price">
+        <input type="text" id="productImage" placeholder="Image file name">
+        <button onclick="uploadProduct()">Upload</button>
+    </div>
+    <section class="product-section">
+        <h2>Top Selling Product</h2>
+        <div class="product" id="productList"></div>
+            <div class="card">
+                <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\cornsale.jpg" alt="corn">
+                <div class="hover-cart">
+                    <button>-</button>
+                    <span>1</span>
+                    <button>+</button>
+                    <button onclick="addToCart()">Add to Cart</button>
+                    </div>
+                <h3>Corn (1kg)</h3>
+                <p class="price">
+                    <span class="old-price">Rs.550</span>
+                    <span class="new-price">Rs.450</span>
+                </p>
+                <p class="rating">⭐⭐⭐⭐⭐ (32 reviews)</p>
+            </div>
+            <div class="card">
+                <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\karumbusale.jfif" alt="Sugarcand">
+                <div class="hover-cart">
+                    <button>-</button>
+                    <span>1</span>
+                    <button>+</button>
+                    <button class="cart-btn">Add Cart</button>
+                </div>
+                <h3>SugarCand (1Kg)</h3>
+                <p class="price">
+                    <span class="old-price">Rs.300</span>
+                    <span class="new-price">Rs.250</span>
+                </p>
+                <p  class="rating">⭐⭐⭐⭐⭐ (32 reviews)</p>
+            </div>
+            <div class="card">
+                <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\onionsale.jfif" alt="onion">
+                <div class="hover-cart">
+                    <button>-</button>
+                    <span>1</span>
+                    <button>+</button>
+                    <button class="cart-btn">Add cart</button>
+                </div>
+                <h3>Onion</h3>
+                <p class="price">
+                    <span class="old-price">Rs.100</span>
+                    <span class="new-price">Rs.60</span>
+                </p>
+                <p class="rating">⭐⭐⭐⭐⭐ (32 reviews)</p>
+            </div>
+            <div class="card">
+                <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\vaalaisale.jpeg" alt="banana">
+                <div class="hover-cart">
+                    <button>-</button>
+                    <span>1</span>
+                    <button>+</button>
+                    <button class="cart-btn">Add cart</button>
+                </div>
+                <h3>Banana</h3>
+                <p class="price">
+                    <span class="old-price">Rs.150</span>
+                    <span class="new-price">Rs.100</span>
+                </p>
+                <p class="rating">⭐⭐⭐⭐⭐ (32 reviews)</p>
+            </div>
+        </div>
+    </section>
+    <section>
+    <section class="product2">
+            <div class="card2">
+                <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\arisisale.jpg" alt="arisi">
+                <div class="hover-cart">
+                    <button>-</button>
+                    <span>1</span>
+                    <button>+</button>
+                    <button class="cart-btn">Add cart</button>
+                </div>
+                <h3>Arisi (1kg)</h3>
+                <p class="price">
+                    <span class="old-price">Rs.100</span>
+                    <span class="new-price">Rs.80</span>
+                </p>
+                <p class="rating">⭐⭐⭐⭐⭐ (32 reviews)</p>
+            </div>
+            <div class="card2">
+                <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\kambusale.jpg" alt="Kambu">
+                <div class="hover-cart">
+                    <button>-</button>
+                    <span>1</span>
+                    <button>+</button>
+                    <button class="cart-btn">Add cart</button>
+                </div>
+                <h3>Kambu (1Kg)</h3>
+                <p class="price">
+                    <span class="old-price">Rs.300</span>
+                    <span class="new-price">Rs.250</span>
+                </p>
+                <p  class="rating">⭐⭐⭐⭐⭐ (32 reviews)</p>
+            </div>
+            <div class="card2">
+                <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\sunsale.jfif" alt="sun Flower">
+                <div class="hover-cart">
+                    <button>-</button>
+                    <span>1</span>
+                    <button>+</button>
+                    <button class="cart-btn">Add cart</button>
+                </div>
+                <h3>Sun Flower</h3>
+                <p class="price">
+                    <span class="old-price">Rs.100</span>
+                    <span class="new-price">Rs.60</span>
+                </p>
+                <p class="rating">⭐⭐⭐⭐⭐ (32 reviews)</p>
+            </div>
+            <div class="card2">
+                <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\nelsale.avif" alt="Nel">
+                <div class="hover-cart">
+                    <button>-</button>
+                    <span>1</span>
+                    <button>+</button>
+                    <button class="cart-btn">Add cart</button>
+                </div>
+                <h3>Nel</h3>
+                <p class="price">
+                    <span class="old-price">Rs.150</span>
+                    <span class="new-price">Rs.100</span>
+                </p>
+                <p class="rating">⭐⭐⭐⭐⭐ (32 reviews)</p>
+            </div>
+        </section>
+    <section class="certificate">
+        <h2>Our Certificate</h2>
+    </section>
+    <section class="certificate-section">
+        <div class="certificate-card">
+            <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\iso.png" alt="iso">
+        </div>
+        <div class="certificate-card">
+            <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\quality.png" alt="quality">
+        </div>
+        <div class="certificate-card">
+            <img src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\q.jfif" alt="q">
+        </div>
+    </section>
+    
+    <script src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\script.js"></script>
+    <div id="loginModal" class="login-modal">
+    <div class="login-box">
+        <span class="close-btn" onclick="closeLogin()">✖</span>
+
+        <div id="loginForm">
+            <h2>Login</h2>
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+            <button onclick="loginUser()">Login</button>
+            <p onclick="showRegister()">Create Account</p>
+        </div>
+
+        <div id="registerForm" style="display:none;">
+            <input type="text" id="regName" placeholder="Full Name" required>
+            <input type="email" id="regEmail" placeholder="Email" required>
+            <input type="password" id="regPassword" placeholder="Password" required>
+            <select id="userRole">
+                 <option value="buyer">Buyer</option>
+                 <option value="farmer">Farmer</option>
+            </select>
+            <button onclick="registerUser()">Register</button>
+            <p onclick="showLogin()">Back to Login</p>
+        </div>
+    </div>
+</div>
+<div id="cartPanel" class="cart-panel">
+    <div class="cart-header">
+        <h2>My Cart</h2>
+        <span onclick="closeCart()">✖</span>
+    </div>
+
+    <div class="cart-items" id="cartItems"></div>
+
+    <div class="cart-footer">
+        <h3 id="cartTotal">Total: Rs.0</h3>
+        <select id="paymentMethod">
+    <option value="COD">Cash on Delivery</option>
+    <option value="UPI">UPI Payment</option>
+</select>
+        <button onclick="placeOrder()">Place Order</button>
+    </div>
+</div>
+
+    <div class="cart-items" id="cartItems"></div>
+<div id="productModal" class="product-modal">
+    <div class="product-box">
+        <span onclick="closeProductDetails()" class="close-btn">✖</span>
+        <img id="detailImg" src="" alt="">
+        <h2 id="detailName"></h2>
+        <h3 id="detailPrice"></h3>
+        <p id="detailDesc"></p>
+        <button onclick="addToCart()">Add to Cart</button>
+    </div>
+</div>
+<script src="C:\Users\ADMIN\OneDrive\Desktop\Lcoal-Farmer\frontend\trackorder.js"></script>
+</body>
+</html>

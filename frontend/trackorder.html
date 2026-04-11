@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Track Order</title>
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background:#0b7a2f;
+      margin:0;
+      padding:0;
+    }
+    .container{
+      width:90%;
+      max-width:900px;
+      margin:40px auto;
+      background:#fff;
+      border-radius:20px;
+      padding:30px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.2);
+    }
+    h1{
+      text-align:center;
+      color:#0b7a2f;
+      margin-bottom:25px;
+    }
+    .track-box{
+      display:flex;
+      gap:15px;
+      justify-content:center;
+      margin-bottom:30px;
+      flex-wrap:wrap;
+    }
+    input{
+      padding:12px;
+      width:300px;
+      border:2px solid green;
+      border-radius:10px;
+      font-size:16px;
+    }
+    button{
+      padding:12px 20px;
+      border:none;
+      background:green;
+      color:white;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:16px;
+    }
+    .order-card{
+      background:#f7f7f7;
+      border-radius:15px;
+      padding:20px;
+      margin-top:20px;
+    }
+    .progress{
+      display:flex;
+      justify-content:space-between;
+      margin-top:30px;
+      position:relative;
+    }
+    .progress::before{
+      content:"";
+      position:absolute;
+      top:15px;
+      left:8%;
+      width:84%;
+      height:4px;
+      background:#ccc;
+      z-index:1;
+    }
+    .step{
+      position:relative;
+      z-index:2;
+      text-align:center;
+      width:25%;
+    }
+    .circle{
+      width:30px;
+      height:30px;
+      background:green;
+      color:white;
+      border-radius:50%;
+      line-height:30px;
+      margin:0 auto 10px;
+      font-weight:bold;
+    }
+    .details{
+      margin-top:25px;
+      line-height:1.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Track Your Order</h1>
+
+    <div class="track-box">
+      <input type="text" placeholder="Enter Order ID (Eg: FARM12345)">
+      <button>Track Order</button>
+    </div>
+
+    <div class="order-card">
+      <h3>Order ID: FARM12345</h3>
+      <p><strong>Product:</strong> Corn + Onion Combo</p>
+      <p><strong>Expected Delivery:</strong> Tomorrow, 6 PM</p>
+
+      <div class="progress">
+        <div class="step">
+          <div class="circle">✓</div>
+          <p>Ordered</p>
+        </div>
+        <div class="step">
+          <div class="circle">✓</div>
+          <p>Packed</p>
+        </div>
+        <div class="step">
+          <div class="circle">✓</div>
+          <p>Shipped</p>
+        </div>
+        <div class="step">
+          <div class="circle">4</div>
+          <p>Delivered</p>
+        </div>
+      </div>
+
+      <div class="details">
+        <p><strong>Delivery Partner:</strong> Farmer Express</p>
+        <p><strong>Current Location:</strong> Trichy Hub</p>
+        <p><strong>Status:</strong> Out for delivery</p>
+        <p><strong>Customer Support:</strong> +91 98765 43210</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
