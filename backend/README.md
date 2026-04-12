@@ -3,7 +3,7 @@
 A full stack web application that connects farmers directly with buyers.
 
 ## 🚀 Live Demo
-Frontend: https://your-netlify-url.netlify.app  
+Frontend:  varun-local-farmer-market.netlify.app
 Backend API: https://local-farmer-market-1.onrender.com/api/products/
 
 ## ✨ Features
