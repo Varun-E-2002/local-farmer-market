@@ -139,3 +139,12 @@ def update_order_status(request, order_id):
             return JsonResponse({
                 "message": "Order not found"
             }, status=404)
+
+# =========================
+# UPDATE ORDER STATUS
+# =========================
+@csrf_exempt
+def update_order_status(request, order_id):
+    return JsonResponse({
+        "message": f"Order {order_id} updated successfully"
+    })

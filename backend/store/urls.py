@@ -6,7 +6,8 @@ from .views import (
     login_user,
     place_order,
     user_orders,
-    all_orders
+    all_orders,
+    update_order_status
 )
 
 urlpatterns = [
