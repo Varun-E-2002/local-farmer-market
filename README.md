@@ -1,55 +1,39 @@
-# 🌾 Local Farmer Market
+# 🌾 Local Farmer Market | Full Stack Web Application
 
-A full-stack web application that connects **farmers and buyers directly**.  
-Farmers can upload fresh farm products, and buyers can explore, add to cart, and purchase products easily.
+A modern **full stack farmer marketplace web application** built to connect **farmers directly with buyers**.  
+This platform helps farmers upload their fresh products and allows customers to browse, add to cart, and place orders easily.
 
 ---
 
 ## 🚀 Live Demo
-🔗 https://local-farmer-market.onrender.com
+🌐 Frontend: https://local-farmer-market.netlify.app  
+⚙️ Backend API: https://local-farmer-market.onrender.com/api/
 
 ---
 
-## 📌 Features
-- 👨‍🌾 Farmer login and product upload
-- 🛒 Buyer dashboard with cart
-- 📦 Best selling products section
-- 🗂️ Category-wise product display
-- 📱 Responsive premium UI design
-- 🔐 User registration and role-based login
-- 🌐 Backend API integration with Django
-- ☁️ Deployment using Render
-- 📂 Version control with GitHub
+## ✨ Features
+- 👨‍🌾 Farmer login & product upload
+- 🛒 Buyer cart and checkout
+- 🔐 Login / Register authentication
+- 📦 Order placement and tracking
+- 🖼️ Dynamic product image loading
+- 🎞️ Auto banner slider
+- 🌍 Multi-language support
+- 📱 Responsive premium UI
+- ☁️ Deployed with Netlify + Render
 
 ---
 
 ## 🛠️ Tech Stack
 ### Frontend
-- HTML
-- CSS
+- HTML5
+- CSS3
 - JavaScript
 
 ### Backend
-- Python
 - Django
 - Django REST Framework
-
-### Database
 - SQLite3
 
 ### Deployment
-- GitHub
-- Render
-
----
-
-## 📸 Screenshots
-_Add your project screenshots here_
-
----
-
-## ⚙️ Installation
-Clone the repository:
-
-```bash
-git clone https://github.com/Varun-E-2002/local-farmer-market.git
+- Netlify (
