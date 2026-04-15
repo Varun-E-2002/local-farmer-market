@@ -1,46 +1,53 @@
-const images = [
-    "far2.avif",
-    "far3.jpeg",
-    "far4.jpg"
+const API_URL = "https://local-farmer-market-1.onrender.com/api";
+
+const bannerImages = [
+    "images/far1.jpeg",
+    "images/far2.jpeg",
+    "images/far3.jpeg",
+    "images/far4.jpeg"
 ];
-
-let index = 0;
+let currentBanner = 0;
 const bannerImage = document.getElementById("bannerImage");
+const prevBtn = document.querySelector(".prev");
+const nextBtn = document.querySelector(".next");
+let bannerInterval;
 
-/* =========================
-   HERO SLIDER
-========================= */
-if (document.querySelector(".next")) {
-    document.querySelector(".next").onclick = function () {
-        index = (index + 1) % images.length;
-        bannerImage.src = images[index];
-    };
+function showBannerImage() {
+    bannerImage.src = bannerImages[currentBanner];
 }
 
-if (document.querySelector(".prev")) {
-    document.querySelector(".prev").onclick = function () {
-        index = (index - 1 + images.length) % images.length;
-        bannerImage.src = images[index];
-    };
+function nextBanner() {
+    currentBanner = (currentBanner + 1) % bannerImages.length;
+    showBannerImage();
 }
 
-/* =========================
-   PRODUCT SCROLL
-========================= */
-function scrollLeftRange() {
-    document.getElementById("rangeContainer").scrollBy({
-        left: -300,
-        behavior: "smooth"
-    });
+function prevBanner() {
+    currentBanner--;
+    if (currentBanner < 0) {
+        currentBanner = bannerImages.length - 1;
+    }
+    showBannerImage();
 }
 
-function scrollRightRange() {
-    document.getElementById("rangeContainer").scrollBy({
-        left: 300,
-        behavior: "smooth"
-    });
+function startAutoSlider() {
+    clearInterval(bannerInterval);
+    bannerInterval = setInterval(nextBanner, 3000);
 }
 
+// first load
+showBannerImage();
+startAutoSlider();
+
+// button events
+nextBtn.onclick = function () {
+    nextBanner();
+    startAutoSlider();
+};
+
+prevBtn.onclick = function () {
+    prevBanner();
+    startAutoSlider();
+};
 /* =========================
    LOGIN MODAL
 ========================= */
@@ -138,29 +145,61 @@ function updateCartUI() {
    REGISTER
 ========================= */
 async function registerUser() {
-    let name = document.getElementById("regName").value;
-    let email = document.getElementById("regEmail").value;
-    let password = document.getElementById("regPassword").value;
+    let name = document.getElementById("regName").value.trim();
+    let email = document.getElementById("regEmail").value.trim();
+    let password = document.getElementById("regPassword").value.trim();
+    let phone = document.getElementById("regPhone").value.trim();
     let role = document.getElementById("userRole").value;
 
-    let response = await fetch("http://127.0.0.1:8000/api/register/", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ name, email, password, role })
-    });
+    if (!name || !email || !password || !phone) {
+        alert("Please fill all fields");
+        return;
+    }
 
-    let data = await response.json();
+    try {
+        let response = await fetch(`${API_URL}/register/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name,
+                email,
+                password,
+                phone,
+                role
+            })
+        });
 
-    if (response.ok) {
-        alert(data.message);
-        showLogin();
-    } else {
-        alert(data.message);
+        let data = await response.json();
+
+        if (response.ok) {
+            alert("Registration successful");
+            showLogin();
+        } else {
+            alert(data.message || "Registration failed");
+        }
+
+    } catch (error) {
+        console.error(error);
+        alert("Server connection error");
     }
 }
+let selectedPayment = "COD";
 
+function selectPayment(method){
+    selectedPayment = method;
+
+    document.querySelectorAll(".pay-btn").forEach(btn=>{
+        btn.classList.remove("active");
+    });
+
+    if(method === "COD"){
+        document.querySelectorAll(".pay-btn")[0].classList.add("active");
+    } else {
+        document.querySelectorAll(".pay-btn")[1].classList.add("active");
+    }
+}
 /* =========================
    LOGIN
 ========================= */
@@ -168,7 +207,7 @@ async function loginUser() {
     let email = document.querySelector("#loginForm input[type='email']").value;
     let password = document.querySelector("#loginForm input[type='password']").value;
 
-    let response = await fetch("http://127.0.0.1:8000/api/login/", {
+    let response = await fetch(`${API_URL}/login/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -179,14 +218,19 @@ async function loginUser() {
     let data = await response.json();
 
     if (response.ok) {
-        loggedInUser = data;
         localStorage.setItem("loggedInUser", JSON.stringify(data));
+        loggedInUser = data;
 
-        alert(data.message);
         closeLogin();
 
+        document.getElementById("successPopup").style.display = "flex";
+
+        setTimeout(() => {
+            document.getElementById("successPopup").style.display = "none";
+        }, 2500);
+
         if (data.role === "farmer") {
-            window.location.href = "dashboard.html";
+            document.getElementById("farmerUploadBox").style.display = "block";
         }
     } else {
         alert(data.message);
@@ -248,7 +292,7 @@ async function uploadProduct() {
     let price = document.getElementById("productPrice").value;
     let image = document.getElementById("productImage").value;
 
-    let response = await fetch("http://127.0.0.1:8000/api/upload-product/", {
+    let response = await fetch(`${API_URL}/upload-product/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -270,7 +314,7 @@ async function uploadProduct() {
    LOAD PRODUCTS
 ========================= */
 async function loadProducts() {
-    let response = await fetch("http://127.0.0.1:8000/api/products/");
+    let response = await fetch(`${API_URL}/products/`);
     let products = await response.json();
 
     let productList = document.getElementById("productList");
@@ -303,3 +347,100 @@ async function loadProducts() {
 window.onload = function () {
     loadProducts();
 };
+
+function changeLanguage(lang) {
+    const texts = {
+        en: {
+            home: "Home",
+            category: "All Categories",
+            best: "Best selling",
+            combo: "Special Combo",
+            track: "Track Order",
+            search: "Search Products"
+        },
+        ta: {
+            home: "முகப்பு",
+            category: "அனைத்து வகைகள்",
+            best: "சிறந்த விற்பனை",
+            combo: "சிறப்பு காம்போ",
+            track: "ஆர்டர் டிராக்",
+            search: "பொருட்கள் தேடவும்"
+        },
+        hi: {
+            home: "होम",
+            category: "सभी श्रेणियाँ",
+            best: "बेस्ट सेलिंग",
+            combo: "स्पेशल कॉम्बो",
+            track: "ऑर्डर ट्रैक",
+            search: "उत्पाद खोजें"
+        }
+    };
+
+    document.getElementById("navHome").innerText = texts[lang].home;
+    document.getElementById("navCategory").innerText = texts[lang].category;
+    document.getElementById("navBest").innerText = texts[lang].best;
+    document.getElementById("navCombo").innerText = texts[lang].combo;
+    document.getElementById("navTrack").innerText = texts[lang].track;
+    document.getElementById("searchBox").placeholder = texts[lang].search;
+    document.getElementById("langBtn").innerText = 
+    (lang === "en") ? "English ▼" :
+    (lang === "ta") ? "தமிழ் ▼" :
+    "हिंदी ▼";
+    if (lang === "en") {
+    document.getElementById("langBtn").innerText = "English ▼";
+}
+if (lang === "ta") {
+    document.getElementById("langBtn").innerText = "தமிழ் ▼";
+}
+if (lang === "hi") {
+    document.getElementById("langBtn").innerText = "हिंदी ▼";
+}
+}
+function searchProduct() {
+    let input = document.getElementById("searchBox").value.toLowerCase();
+    let products = document.querySelectorAll(".card2, .range-item");
+    let firstMatch = null;
+    let found = false;
+
+    products.forEach(product => {
+        let name = product.innerText.toLowerCase();
+
+        if (name.includes(input)) {
+            product.style.display = "";
+            found = true;
+
+            if (!firstMatch) {
+                firstMatch = product;
+            }
+        } else {
+            product.style.display = "none";
+        }
+    });
+
+    document.getElementById("noResult").style.display = found ? "none" : "block";
+
+    if (firstMatch) {
+        firstMatch.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    }
+}
+function openLogin() {
+    document.getElementById("loginModal").style.display = "flex";
+    showLogin();
+}
+
+function closeLogin() {
+    document.getElementById("loginModal").style.display = "none";
+}
+
+function showRegister() {
+    document.getElementById("loginForm").style.display = "none";
+    document.getElementById("registerForm").style.display = "block";
+}
+
+function showLogin() {
+    document.getElementById("loginForm").style.display = "block";
+    document.getElementById("registerForm").style.display = "none";
+}
