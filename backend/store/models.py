@@ -16,6 +16,7 @@ class User(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15)
     role = models.CharField(max_length=20)
 
     def __str__(self):

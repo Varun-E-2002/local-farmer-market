@@ -13,50 +13,36 @@ def products(request):
 
 
 # =========================
-# UPLOAD PRODUCT
-# =========================
-@csrf_exempt
-def upload_product(request):
-    if request.method == "POST":
-        data = json.loads(request.body)
-
-        Product.objects.create(
-            name=data["name"],
-            price=data["price"],
-            image=data["image"],
-            description="Fresh farm product"
-        )
-
-        return JsonResponse({
-            "message": "Product uploaded successfully"
-        })
-
-
-# =========================
 # REGISTER USER
 # =========================
 @csrf_exempt
 def register_user(request):
     if request.method == "POST":
-        data = json.loads(request.body)
+        try:
+            data = json.loads(request.body)
 
-        # duplicate email check
-        if User.objects.filter(email=data["email"]).exists():
+            if User.objects.filter(email=data["email"]).exists():
+                return JsonResponse({
+                    "message": "Email already registered"
+                }, status=400)
+
+            user = User.objects.create(
+                name=data["name"],
+                email=data["email"],
+                password=data["password"],
+                phone=data["phone"],
+                role=data["role"]
+            )
+
             return JsonResponse({
-                "message": "Email already registered"
-            }, status=400)
+                "message": "Registered successfully",
+                "role": user.role
+            })
 
-        user = User.objects.create(
-            name=data["name"],
-            email=data["email"],
-            password=data["password"],
-            role=data["role"]
-        )
-
-        return JsonResponse({
-            "message": "Registered successfully",
-            "role": user.role
-        })
+        except Exception as e:
+            return JsonResponse({
+                "message": str(e)
+            }, status=500)
 
 
 # =========================
@@ -65,9 +51,9 @@ def register_user(request):
 @csrf_exempt
 def login_user(request):
     if request.method == "POST":
-        data = json.loads(request.body)
-
         try:
+            data = json.loads(request.body)
+
             user = User.objects.get(
                 email=data["email"],
                 password=data["password"]
@@ -85,6 +71,37 @@ def login_user(request):
                 "message": "Invalid login"
             }, status=400)
 
+        except Exception as e:
+            return JsonResponse({
+                "message": str(e)
+            }, status=500)
+
+
+# =========================
+# UPLOAD PRODUCT
+# =========================
+@csrf_exempt
+def upload_product(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+
+            Product.objects.create(
+                name=data["name"],
+                price=data["price"],
+                image=data["image"],
+                description="Fresh farm product"
+            )
+
+            return JsonResponse({
+                "message": "Product uploaded successfully"
+            })
+
+        except Exception as e:
+            return JsonResponse({
+                "message": str(e)
+            }, status=500)
+
 
 # =========================
 # PLACE ORDER
@@ -92,47 +109,61 @@ def login_user(request):
 @csrf_exempt
 def place_order(request):
     if request.method == "POST":
-        data = json.loads(request.body)
+        try:
+            data = json.loads(request.body)
 
-        order = Order.objects.create(
-            order_id=data["order_id"],
-            user_email=data["user_email"],
-            items=json.dumps(data["items"]),
-            total=data["total"],
-            date=data["date"],
-            payment_method=data["payment_method"],
-            status="Order Placed"
-        )
+            order = Order.objects.create(
+                order_id=data["order_id"],
+                user_email=data["user_email"],
+                items=json.dumps(data["items"]),
+                total=data["total"],
+                date=data["date"],
+                payment_method=data["payment_method"],
+                status="Order Placed"
+            )
 
-        return JsonResponse({
-            "message": "Order placed successfully",
-            "order_id": order.order_id
-        })
+            return JsonResponse({
+                "message": "Order placed successfully",
+                "order_id": order.order_id
+            })
+
+        except Exception as e:
+            return JsonResponse({
+                "message": str(e)
+            }, status=500)
 
 
 # =========================
-# GET USER ORDERS
+# USER ORDERS
 # =========================
 def user_orders(request, email):
     orders = Order.objects.filter(user_email=email).values()
     return JsonResponse(list(orders), safe=False)
 
+
+# =========================
+# ALL ORDERS
+# =========================
 def all_orders(request):
     orders = Order.objects.all().values()
     return JsonResponse(list(orders), safe=False)
 
+
+# =========================
+# UPDATE ORDER STATUS
+# =========================
 @csrf_exempt
 def update_order_status(request, order_id):
     if request.method == "POST":
-        data = json.loads(request.body)
-
         try:
+            data = json.loads(request.body)
+
             order = Order.objects.get(order_id=order_id)
             order.status = data["status"]
             order.save()
 
             return JsonResponse({
-                "message": "Status updated"
+                "message": "Status updated successfully"
             })
 
         except Order.DoesNotExist:
@@ -140,11 +171,7 @@ def update_order_status(request, order_id):
                 "message": "Order not found"
             }, status=404)
 
-# =========================
-# UPDATE ORDER STATUS
-# =========================
-@csrf_exempt
-def update_order_status(request, order_id):
-    return JsonResponse({
-        "message": f"Order {order_id} updated successfully"
-    })
+        except Exception as e:
+            return JsonResponse({
+                "message": str(e)
+            }, status=500)
